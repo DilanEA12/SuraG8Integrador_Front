@@ -1,0 +1,124 @@
+.contenedor-formulario {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.usuario-formulario {
+  width: 360px; 
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--sura-blanco);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: animacion 0.6s ease;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.usuario-formulario h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--sura-azul-profundo);
+}
+
+.usuario-formulario input,
+.usuario-form select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--sura-gris-claro);
+  font-size: 14px;
+}
+
+.usuario-formulario input:focus,
+.usuario-form select:focus {
+  outline: none;
+  border-color: var(--sura-azul-profundo);
+}
+
+.usuario-formulario button {
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: var(--sura-azul-profundo);
+  color: var(--sura-blanco);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.usuario-formulario button:hover {
+  background: var(--sura-aqua);
+  color: var(--sura-azul-profundo);
+  transform: translateY(-2px);
+}
+
+.usuario-formulario select {
+  height: 42px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--sura-gris-claro);
+  font-size: 14px;
+  background-color: var(--sura-blanco);
+  cursor: pointer;
+}
+
+.usuario-formulario select:focus {
+  outline: none;
+  border-color: var(--sura-azul-profundo);
+}
+
+.contenedor-formulario p {
+  font-size: 14px;
+  text-align: center;
+  color: var(--sura-texto-principal);
+}
+
+.error-mensaje {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.usuario-formulario button:disabled {
+  background: var(--sura-gris-claro);
+  cursor: not-allowed;
+}
+
+.logo-sura-formulario {
+  width: 400px; 
+  height: auto;
+  flex-shrink: 0; 
+  animation: animacion 0.6s ease;
+}
+
+
+@keyframes animacion {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .contenedor-formulario {
+    flex-direction: column; 
+  }
+  .logo-sura-formulario {
+    width: 250px;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+
+
+
+

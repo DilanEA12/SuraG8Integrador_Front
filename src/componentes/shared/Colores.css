@@ -1,0 +1,67 @@
+/* ====================================
+   COLORES CORPORATIVOS SURA - UNIFICADO
+   Variables globales para todo el proyecto
+   ==================================== */
+
+:root {
+  /* ===== PALETA PRINCIPAL SURA ===== */
+  --sura-azul-profundo: #001E60;
+  --sura-aqua: #05C3DE;
+  --sura-blanco: #FFFFFF;
+  --sura-gris-oscuro: #484949;
+  --sura-gris-claro: #DAE0E8;
+
+  /* ===== ALIASES PARA CONSISTENCIA ===== */
+  /* (usados en módulo de Notificaciones) */
+  --sura-azul-medio: #003DA5;       /* azul más claro para fondos/bordes */
+  --sura-azul-cielo: #00A3E0;       /* azul cielo para gradientes */
+  --sura-amarillo: #FDB913;         /* amarillo corporativo (tigre) */
+  --sura-amarillo-oscuro: #FFA000;  /* amarillo hover */
+
+  /* ===== TEXTOS ===== */
+  --sura-texto-principal: var(--sura-gris-oscuro);
+  --sura-texto-secundario: #666666;
+  --sura-texto-sobre-azul: var(--sura-blanco);
+
+  /* ===== ESTADOS / FEEDBACK ===== */
+  --sura-exito: #28a745;
+  --sura-exito-fondo: rgba(40, 167, 69, 0.15);
+  --sura-exito-texto: #155724;
+
+  --sura-error: #dc3545;
+  --sura-error-fondo: rgba(220, 53, 69, 0.15);
+  --sura-error-texto: #721c24;
+
+  --sura-info: var(--sura-aqua);
+  --sura-info-fondo: rgba(0, 163, 224, 0.15);
+  --sura-info-texto: var(--sura-azul-medio);
+
+  --sura-advertencia: var(--sura-amarillo);
+  --sura-advertencia-fondo: rgba(253, 185, 19, 0.15);
+  --sura-advertencia-texto: #856404;
+
+  /* ===== GRADIENTES REUTILIZABLES ===== */
+  --sura-gradiente-principal: linear-gradient(135deg, var(--sura-azul-medio) 0%, var(--sura-azul-cielo) 100%);
+  --sura-gradiente-dorado: linear-gradient(135deg, var(--sura-amarillo) 0%, var(--sura-amarillo-oscuro) 100%);
+  --sura-gradiente-peligro: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+
+  /* ===== GLASSMORPHISM ===== */
+  --sura-glass-fondo: rgba(255, 255, 255, 0.85);
+  --sura-glass-borde: rgba(255, 255, 255, 0.3);
+  --sura-glass-sombra: 0 8px 32px 0 rgba(0, 61, 165, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  --sura-glass-blur: blur(20px) saturate(180%);
+
+  /* ===== BORDES Y RADIOS ===== */
+  --sura-radio-sm: 8px;
+  --sura-radio-md: 12px;
+  --sura-radio-lg: 16px;
+  --sura-radio-xl: 20px;
+
+  /* ===== SOMBRAS ===== */
+  --sura-sombra-sm: 0 2px 8px rgba(0, 61, 165, 0.08);
+  --sura-sombra-md: 0 4px 16px rgba(0, 61, 165, 0.12);
+  --sura-sombra-lg: 0 8px 32px rgba(0, 61, 165, 0.2);
+
+  /* ===== TRANSICIONES ===== */
+  --sura-transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
