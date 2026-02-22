@@ -53,7 +53,7 @@ function Home() {
       proximamente: false,
     },
 
-    // ===== MÓDULO PRÓXIMO: PROFESORES =====
+    // ===== MÓDULO ACTIVO: PROFESORES =====
     {
       titulo: 'Profesores',
       descripcion: 'Gestionar información de profesores del sistema.',
@@ -68,15 +68,16 @@ function Home() {
     //====== Cursos ========
     {
       titulo: 'Cursos',
-      descripcion: 'Administrar y gestionar pertenencia a los crusos de los estudiantes.',
+      descripcion: 'Administrar y gestionar pertenencia a los cursos de los estudiantes.',
       icono: '📖',
-      ruta: '/cursos',
       color: 'dorado',
+      ruta: '/cursos',
       disponible: true,
       soloProfesor: false,
       proximamente: false,
     },
-    // ===== MÓDULO PRÓXIMO: NOTAS =====
+
+    // ===== MÓDULO NOTAS (YA ACTIVO) =====
     {
       titulo: 'Notas',
       descripcion: 'Consultar y gestionar calificaciones de estudiantes.',
@@ -85,7 +86,7 @@ function Home() {
       color: 'cyan',
       disponible: true,
       soloProfesor: true,
-      proximamente: true,
+      proximamente: false, // 🔥 CAMBIO REALIZADO AQUÍ (antes estaba en true)
     },
 
     // ===== MÓDULO PRÓXIMO: ASISTENCIAS =====
@@ -112,7 +113,7 @@ function Home() {
       proximamente: true,
     },
 
-    // ===== MÓDULO PRÓXIMO: REPORTES (solo profesor) =====
+    // ===== MÓDULO ACTIVO: REPORTES (solo profesor) =====
     {
       titulo: 'Reportes Estadísticos',
       descripcion: 'Visualizar estadísticas y reportes del sistema.',
@@ -136,7 +137,7 @@ function Home() {
 
         {/* ===== ENCABEZADO ===== */}
         <div className="home-header">
-          <h1>¡Bienvenido, {usuario?.nombre}! 👋</h1>
+          <h1>¡Bienvenido, {usuario?.nombre}!</h1>
           <p className="home-rol">
             Rol: <span className="badge-rol-home">{usuario?.rol}</span>
           </p>
@@ -161,7 +162,7 @@ function Home() {
                 key={index}
                 className={`tarjeta tarjeta-${tarjeta.color} ${tarjeta.proximamente ? 'tarjeta-proximamente' : ''}`}
                 onClick={() => irA(tarjeta)}
-                style={{ cursor: tarjeta.color ? 'default' : 'pointer' }}
+                style={{ cursor: tarjeta.proximamente ? 'default' : 'pointer' }}
               >
                 <div className="tarjeta-icono">{tarjeta.icono}</div>
                 <h3>{tarjeta.titulo}</h3>

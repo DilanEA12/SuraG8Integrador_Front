@@ -2,7 +2,7 @@
 // APP.JSX - VERSIÓN FINAL
 // ✅ Usuarios       ✅ Notificaciones
 // ✅ Profesores     ✅ Cursos
-// ✅ Reportes       ⏳ Notas  ⏳ Matrícula
+// ✅ Reportes       ✅ Notas  ⏳ Matrícula
 // ====================================
 
 import React from 'react';
@@ -27,18 +27,20 @@ import ListaCursos     from './componentes/cursos/ListaCursos';
 import FormularioCurso from './componentes/cursos/FormularioCurso';
 
 // ── Reportes ✅ ──
-
 import ReportesEstadisticos from './componentes/reportes/ReportesEstadisticos';
+
 // ── Shared ──
 import Navbar from './componentes/shared/Navbar';
 import Inicio from './componentes/pages/Inicio';
 import Home   from './componentes/pages/Home';
 
+// ── Notas ──
+import ListaNotas from './componentes/notas/ListaNotas';
+import CrearNota  from './componentes/notas/CrearNota';
+import EditarNota from './componentes/notas/EditarNota';
+
 /*
   PRÓXIMOS MÓDULOS — descomenta al implementarlos:
-
-  import ListaNotas          from './componentes/notas/ListaNotas';
-  import FormularioNota      from './componentes/notas/FormularioNota';
 
   import ListaMatricula      from './componentes/matricula/ListaMatricula';
   import FormularioMatricula from './componentes/matricula/FormularioMatricula';
@@ -50,15 +52,33 @@ import './componentes/shared/Colores.css';
 // ── Guards ──────────────────────────────────
 function RutaProtegida({ children }) {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
+
   if (!usuario) return <Navigate to="/login" replace />;
-  return <><Navbar />{children}</>;
+
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 }
 
 function RutaSoloProfesor({ children }) {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
+
   if (!usuario) return <Navigate to="/login" replace />;
-  if (usuario.rol !== 'Profesor') return <Navigate to="/home" replace />;
-  return <><Navbar />{children}</>;
+
+  // Solo permite acceso a usuarios con rol "Profesor"
+  if (usuario.rol !== 'Profesor') {
+    return <Navigate to="/home" replace />;
+  }
+
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 }
 
 // ── App ──────────────────────────────────────
@@ -73,7 +93,8 @@ function App() {
         <Route path="/registro" element={<UsuarioFormulario />} />
 
         {/* Home */}
-        <Route path="/home" element={<RutaProtegida><Home /></RutaProtegida>} />
+        <Route path="/home"
+          element={<RutaProtegida><Home /></RutaProtegida>} />
 
         {/* Usuarios */}
         <Route path="/usuarios"
@@ -82,39 +103,46 @@ function App() {
         {/* Notificaciones */}
         <Route path="/notificaciones"
           element={<RutaProtegida><ListaNotificaciones /></RutaProtegida>} />
+
         <Route path="/notificaciones/crear"
           element={<RutaSoloProfesor><FormularioNotificacion /></RutaSoloProfesor>} />
+
         <Route path="/notificaciones/editar/:id"
           element={<RutaSoloProfesor><EditarNotificacion /></RutaSoloProfesor>} />
 
         {/* Profesores */}
         <Route path="/profesores"
           element={<RutaProtegida><ListaProfesores /></RutaProtegida>} />
+
         <Route path="/profesores/crear"
           element={<RutaSoloProfesor><FormularioProfesor /></RutaSoloProfesor>} />
+
         <Route path="/profesores/editar/:id"
           element={<RutaSoloProfesor><FormularioProfesor /></RutaSoloProfesor>} />
 
         {/* Cursos */}
         <Route path="/cursos"
           element={<RutaProtegida><ListaCursos /></RutaProtegida>} />
+
         <Route path="/cursos/crear"
           element={<RutaSoloProfesor><FormularioCurso /></RutaSoloProfesor>} />
+
         <Route path="/cursos/editar/:id"
           element={<RutaSoloProfesor><FormularioCurso /></RutaSoloProfesor>} />
+
         {/* Reportes — solo Profesor */}
         <Route path="/reportes"
           element={<RutaSoloProfesor><ReportesEstadisticos /></RutaSoloProfesor>} />
       
-        {/* Notas (próximo) */}
-        {/*
+        {/* Notas */}
         <Route path="/notas"
           element={<RutaProtegida><ListaNotas /></RutaProtegida>} />
+
         <Route path="/notas/crear"
-          element={<RutaSoloProfesor><FormularioNota /></RutaSoloProfesor>} />
+          element={<RutaSoloProfesor><CrearNota /></RutaSoloProfesor>} />
+
         <Route path="/notas/editar/:id"
-          element={<RutaSoloProfesor><FormularioNota /></RutaSoloProfesor>} />
-        */}
+          element={<RutaSoloProfesor><EditarNota /></RutaSoloProfesor>} />
 
         {/* Matrícula (próximo) */}
         {/*

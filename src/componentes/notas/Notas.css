@@ -1,0 +1,200 @@
+/* ===============================
+   CONTENEDOR DASHBOARD
+================================ */
+.dashboard-container {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f7fb;
+}
+
+/* ===============================
+   TÍTULO
+================================ */
+.dashboard-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #003a75;
+}
+
+/* ===============================
+   TARJETAS
+================================ */
+.dashboard-card {
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.p-card{
+    text-align: center;
+}
+
+/* ===============================
+   FILTROS
+================================ */
+.dashboard-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-filters input,
+.dashboard-filters select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #cfd8e3;
+  color: #000000;
+}
+
+/* ===============================
+   BOTONES
+================================ */
+.btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: #0055a4;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #003a75;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #0055a4;
+  color: #0055a4;
+}
+
+.btn-outline:hover {
+  background-color: #0055a4;
+  color: #ffffff;
+}
+
+/* ===============================
+   TABLA
+================================ */
+.table-container {
+  overflow-x: auto;
+}
+
+.sura-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sura-table th,
+.sura-table td {
+  padding: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.sura-table thead {
+  background-color: #0055a4;
+  color: #ffffff;
+}
+
+.sura-table tbody tr {
+  border-bottom: 1px solid #e0e6ef;
+}
+
+.sura-table tbody tr:hover {
+  background-color: #f0f6ff;
+}
+
+/* ===============================
+   PAGINACIÓN
+================================ */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  background: transparent;
+  border: 1px solid #0055a4;
+  color: #0055a4;
+}
+
+.pagination button:hover,
+.pagination button.active {
+  background-color: #0055a4;
+  color: #ffffff;
+}
+
+/* ===============================
+   FORMULARIO ADMIN
+================================ */
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.admin-form h3 {
+  grid-column: 1 / -1;
+  color: #0f172a;
+}
+
+.admin-form input,
+.admin-form select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.admin-form button {
+  grid-column: 1 / -1;
+  padding: 10px;
+  background: #0055a4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.admin-form button:hover {
+  background: #003b82;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px 12px;
+  }
+
+  .dashboard-card {
+    padding: 16px;
+  }
+
+  .sura-table {
+    min-width: 600px;
+  }
+}

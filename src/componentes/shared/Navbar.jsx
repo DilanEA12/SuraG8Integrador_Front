@@ -6,7 +6,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './Navbar.css';
-import logoSura from '../../imagenes/logoSura.png';
+import logoSura from '../../imagenes/logo-sura-white.png';
 
 const SECCIONES_COMUNES = [
   { id: 'home',     icono: '🏠', label: 'Home',     ruta: '/home' },
@@ -63,14 +63,15 @@ const SECCIONES_MODULOS = [
     ],
   },
   {
+    // ✅ ACTIVADO: módulo Notas integrado
     id: 'notas',
     icono: '📝',
     label: 'Notas',
     soloProfesor: false,
-    proximamente: true,
+    proximamente: false, // 🔥 ACTIVADO
     items: [
       { label: 'Ver Notas',  ruta: '/notas',       soloProfesor: false },
-      { label: 'Nueva Nota', ruta: '/notas/crear',  soloProfesor: true  },
+      { label: 'Nueva Nota', ruta: '/notas/crear', soloProfesor: true  },
     ],
   },
   {
@@ -139,7 +140,7 @@ function Navbar() {
             onClick={() => redirigir('/home')}
             style={{ cursor: 'pointer' }}
           />
-          <h3>Hola, {usuario?.nombre} 👋</h3>
+          <h3>Hola, {usuario?.nombre}</h3>
           <span className="badge-rol">{usuario?.rol}</span>
         </div>
 
