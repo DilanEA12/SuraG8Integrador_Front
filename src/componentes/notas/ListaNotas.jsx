@@ -122,7 +122,9 @@ function ListaNotas() {
 
   const formatearFecha = (fecha) => {
     if (!fecha) return "";
-    return new Date(fecha).toLocaleDateString("es-CO");
+
+    const [anio, mes, dia] = fecha.split("-");
+    return `${dia}/${mes}/${anio}`;
   };
 
   return (
