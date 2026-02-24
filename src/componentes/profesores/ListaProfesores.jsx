@@ -30,7 +30,8 @@ function ListaProfesores() {
     setFiltrados(
       profesores.filter(p =>
         (p.nombreCompleto || p.nombre || '').toLowerCase().includes(q) ||
-        (p.areasAsignadas || p.especialidad || '').toLowerCase().includes(q)
+        (p.areasAsignadas || p.especialidad || '').toLowerCase().includes(q) ||
+        String(p.id || '').includes(q)
       )
     );
   }, [busqueda, profesores]);

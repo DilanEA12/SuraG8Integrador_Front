@@ -1,16 +1,16 @@
 // ====================================
 // NAVBAR - MENÚ ACORDEÓN CON SCROLL
-// Secciones colapsables por módulo
+// + Toggle Dark Mode integrado
 // ====================================
 
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Navbar.css';
 import logoSura from '../../imagenes/logo-sura-white.png';
 
 const SECCIONES_COMUNES = [
   { id: 'home',     icono: '🏠', label: 'Home',     ruta: '/home' },
-  { id: 'usuarios', icono: '👤', label: 'Usuarios', ruta: '/usuarios' },
+  { id: 'usuarios', icono: '👤', label: 'Usuarios', ruta: '/usuarios', soloProfesor:true },
 ];
 
 const SECCIONES_MODULOS = [
@@ -26,7 +26,6 @@ const SECCIONES_MODULOS = [
     ],
   },
   {
-    // ✅ ACTIVADO: proximamente: false
     id: 'profesores',
     icono: '🎓',
     label: 'Profesores',
@@ -38,37 +37,33 @@ const SECCIONES_MODULOS = [
     ],
   },
   {
-    // 🚫 DESACTIVADO: módulo Asistencias aún no implementado
     id: 'asistencias',
     icono: '📋',
     label: 'Asistencias',
     soloProfesor: false,
-    proximamente: true,
+    proximamente: false,
     items: [
-      { label: 'Ver Asistencias', ruta: '/asistencias',       soloProfesor: false },
-      { label: 'Nueva Asistencia', ruta: '/asistencias/crear', soloProfesor: true  },
+      { label: 'Ver Asistencias',      ruta: '/asistencias',       soloProfesor: false },
+      { label: 'Registrar Asistencia', ruta: '/asistencias/crear', soloProfesor: true  },
     ],
-  }
-,
+  },
   {
-    // ✅ ACTIVADO: módulo Cursos integrado
     id: 'cursos',
     icono: '📖',
     label: 'Cursos',
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Cursos',   ruta: '/cursos',       soloProfesor: false },
-      { label: 'Nuevo Curso',  ruta: '/cursos/crear', soloProfesor: true  },
+      { label: 'Ver Cursos',  ruta: '/cursos',       soloProfesor: false },
+      { label: 'Nuevo Curso', ruta: '/cursos/crear', soloProfesor: true  },
     ],
   },
   {
-    // ✅ ACTIVADO: módulo Notas integrado
     id: 'notas',
     icono: '📝',
     label: 'Notas',
     soloProfesor: false,
-    proximamente: false, // 🔥 ACTIVADO
+    proximamente: false,
     items: [
       { label: 'Ver Notas',  ruta: '/notas',       soloProfesor: false },
       { label: 'Nueva Nota', ruta: '/notas/crear', soloProfesor: true  },
@@ -78,15 +73,14 @@ const SECCIONES_MODULOS = [
     id: 'matricula',
     icono: '🏫',
     label: 'Matrícula',
-    soloProfesor: true,
-    proximamente: true,
+    soloProfesor: false,
+    proximamente: false,
     items: [
       { label: 'Ver Matrículas',  ruta: '/matricula',       soloProfesor: false },
       { label: 'Nueva Matrícula', ruta: '/matricula/crear', soloProfesor: true  },
     ],
   },
   {
-    // ✅ ACTIVADO: módulo Reportes integrado (solo Profesor)
     id: 'reportes',
     icono: '📊',
     label: 'Reportes Estadísticos',
@@ -102,6 +96,24 @@ function Navbar() {
   const navigate = useNavigate();
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [expandidos,  setExpandidos]  = useState({});
+
+  // ── Dark Mode ──────────────────────────────
+  // Se persiste en localStorage para que sobreviva recargas
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('sura-dark') === 'true';
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+    localStorage.setItem('sura-dark', darkMode);
+  }, [darkMode]);
+
+  const toggleDark = () => setDarkMode(prev => !prev);
+  // ──────────────────────────────────────────
 
   const usuario    = JSON.parse(localStorage.getItem('usuario'));
   const esProfesor = usuario?.rol === 'Profesor';
@@ -145,6 +157,17 @@ function Navbar() {
         </div>
 
         <div className="acciones-derecha">
+
+          {/* ── Botón Dark Mode ── */}
+          <button
+            className="btn-dark-toggle"
+            onClick={toggleDark}
+            aria-label={darkMode ? 'Activar modo claro' : 'Activar modo oscuro'}
+            title={darkMode ? 'Modo claro' : 'Modo oscuro'}
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+
           <div className="contenedor-menu">
             <button
               className="boton-menu"
@@ -167,7 +190,6 @@ function Navbar() {
                 {/* ZONA SCROLLEABLE */}
                 <div className="menu-scroll-area">
 
-                  {/* Ítems directos */}
                   {SECCIONES_COMUNES.map((sec) => (
                     <div
                       key={sec.id}
@@ -182,7 +204,6 @@ function Navbar() {
 
                   <div className="menu-divisor" />
 
-                  {/* Secciones acordeón */}
                   {SECCIONES_MODULOS.map((seccion) => {
                     if (seccion.soloProfesor && !esProfesor) return null;
 
@@ -233,7 +254,7 @@ function Navbar() {
 
                 </div>{/* fin scroll-area */}
 
-                {/* PIE FIJO: cerrar sesión */}
+                {/* PIE FIJO */}
                 <div className="menu-pie">
                   <button className="btn-cerrar-sesion" onClick={salir}>
                     <span>🚪</span>

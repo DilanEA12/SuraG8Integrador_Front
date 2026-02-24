@@ -26,8 +26,8 @@ function Home() {
       icono: '👥',
       ruta: '/usuarios',
       color: 'azul',
-      disponible: true,
-      soloProfesor: false,
+      disponible: esProfesor,   // ← Solo profesores ven esta tarjeta
+      soloProfesor: true,
       proximamente: false,
     },
 
@@ -77,7 +77,7 @@ function Home() {
       proximamente: false,
     },
 
-    // ===== MÓDULO NOTAS (YA ACTIVO) =====
+    // ===== MÓDULO NOTAS =====
     {
       titulo: 'Notas',
       descripcion: 'Consultar y gestionar calificaciones de estudiantes.',
@@ -86,7 +86,7 @@ function Home() {
       color: 'cyan',
       disponible: true,
       soloProfesor: true,
-      proximamente: false, // 🔥 CAMBIO REALIZADO AQUÍ (antes estaba en true)
+      proximamente: false, 
     },
 
     // ===== MÓDULO PRÓXIMO: ASISTENCIAS =====
@@ -98,7 +98,7 @@ function Home() {
       color: 'azul',
       disponible: true,
       soloProfesor: true,
-      proximamente: true,
+      proximamente: false,
     },
 
     // ===== MÓDULO PRÓXIMO: MATRÍCULA =====
@@ -110,7 +110,7 @@ function Home() {
       color: 'dorado',
       disponible: true,
       soloProfesor: false,
-      proximamente: true,
+      proximamente: false,
     },
 
     // ===== MÓDULO ACTIVO: REPORTES (solo profesor) =====

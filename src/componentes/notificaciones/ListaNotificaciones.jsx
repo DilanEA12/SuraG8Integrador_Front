@@ -10,6 +10,11 @@ import './ListaNotificaciones_Sura.css';
 
 function ListaNotificaciones() {
   
+  // ── Rol del usuario autenticado ──────────────────────────────
+  const usuario    = JSON.parse(localStorage.getItem('usuario'));
+  const esProfesor = usuario?.rol === 'Profesor';
+  // ────────────────────────────────────────────────────────────
+
   // ========== ESTADOS DEL COMPONENTE ==========
   
   const [notificaciones, setNotificaciones] = useState([]);
@@ -212,7 +217,8 @@ function ListaNotificaciones() {
                 <th>Prioridad</th>
                 <th>Fecha Creación</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                {esProfesor && <th>Acciones</th>}
+                {!esProfesor && <th>Detalle</th>}
               </tr>
             </thead>
             <tbody>
@@ -251,14 +257,16 @@ function ListaNotificaciones() {
                       >
                         👁️
                       </button>
-                      {/* ← NUEVO: Botón de editar */}
-                      <button 
-                        onClick={() => abrirEditar(notif.id)}
-                        className="btn-editar"
-                        title="Editar"
-                      >
-                        ✏️
-                      </button>
+                      {/* Solo Profesor puede editar */}
+                      {esProfesor && (
+                        <button 
+                          onClick={() => abrirEditar(notif.id)}
+                          className="btn-editar"
+                          title="Editar"
+                        >
+                          ✏️
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

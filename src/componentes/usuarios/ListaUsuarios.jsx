@@ -9,10 +9,28 @@ import { usuarioService } from '../../services/usuarioService';
 import './ListaUsuarios.css';
 
 function ListaUsuarios() {
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuarios,            setUsuarios]            = useState([]);
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState('');
+  const [cargando,            setCargando]            = useState(true);
+  const [error,               setError]               = useState('');
+  const [busqueda,            setBusqueda]            = useState('');
+
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
+
+  // ── Filtrado en cliente ──────────────────────────────
+  const usuariosFiltrados = busqueda.trim() === '' ? usuarios : (() => {
+    const q = busqueda.toLowerCase();
+    return usuarios.filter(u =>
+      String(u.id                || '').includes(q)              ||
+      (u.nombre                  || '').toLowerCase().includes(q) ||
+      (u.correo                  || '').toLowerCase().includes(q) ||
+      (u.rol                     || '').toLowerCase().includes(q) ||
+      (u.telefono                || '').toLowerCase().includes(q)
+    );
+  })();
+  // ────────────────────────────────────────────────────
 
   useEffect(() => {
     cargarUsuarios();
@@ -57,9 +75,39 @@ function ListaUsuarios() {
 
   return (
     <div className="usuario-lista">
-      <h2>Usuarios registrados</h2>
+      <h2>👥 Usuarios registrados</h2>
 
       {error && <p className="error-mensaje">{error}</p>}
+
+      {/* BUSCADOR */}
+      <div className="usuarios-toolbar">
+        <div className="usuarios-search-wrap">
+          <input
+            className="usuarios-search"
+            type="text"
+            placeholder="🔍 Buscar por ID, nombre, correo, rol o teléfono..."
+            value={busqueda}
+            onChange={e => {
+              setBusqueda(e.target.value);
+              setUsuarioSeleccionado(null); // cierra detalle al buscar
+            }}
+          />
+          {busqueda && (
+            <button
+              className="btn-limpiar-usuarios"
+              onClick={() => setBusqueda('')}
+              title="Limpiar"
+            >✕</button>
+          )}
+        </div>
+        {busqueda && (
+          <p className="usuarios-resultados-info">
+            {usuariosFiltrados.length === 0
+              ? 'Sin resultados.'
+              : `${usuariosFiltrados.length} resultado${usuariosFiltrados.length !== 1 ? 's' : ''} encontrado${usuariosFiltrados.length !== 1 ? 's' : ''}`}
+          </p>
+        )}
+      </div>
 
       {!error && usuarios.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--sura-texto-secundario)' }}>
@@ -67,12 +115,20 @@ function ListaUsuarios() {
         </p>
       )}
 
+      {!error && usuarios.length > 0 && usuariosFiltrados.length === 0 && (
+        <p style={{ textAlign: 'center', color: 'var(--sura-texto-secundario)' }}>
+          No se encontraron usuarios con esa búsqueda.
+        </p>
+      )}
+
       <div className="usuario-cuadricula">
-        {usuarios.map((usuario) => (
+        {usuariosFiltrados.map((usuario) => (
           <div className="usuario-carta" key={usuario.id}>
+            <div className="usuario-carta-id">#{usuario.id}</div>
             <h3>{usuario.nombre}</h3>
             <p><strong>Rol:</strong> {usuario.rol}</p>
             <p><strong>Correo:</strong> {usuario.correo}</p>
+            {usuario.telefono && <p><strong>Teléfono:</strong> {usuario.telefono}</p>}
             <button onClick={() => verDetalle(usuario.id)}>Ver detalle</button>
           </div>
         ))}
@@ -81,10 +137,13 @@ function ListaUsuarios() {
       {usuarioSeleccionado && (
         <div className="usuario-detalle">
           <h3>Detalle del usuario</h3>
+          <p><strong>ID:</strong> {usuarioSeleccionado.id}</p>
           <p><strong>Nombre:</strong> {usuarioSeleccionado.nombre}</p>
           <p><strong>Correo:</strong> {usuarioSeleccionado.correo}</p>
           <p><strong>Rol:</strong> {usuarioSeleccionado.rol}</p>
-          <p><strong>Teléfono:</strong> {usuarioSeleccionado.telefono}</p>
+          {usuarioSeleccionado.telefono && (
+            <p><strong>Teléfono:</strong> {usuarioSeleccionado.telefono}</p>
+          )}
           <button onClick={cerrarDetalle} style={{ marginTop: '10px' }}>
             Cerrar
           </button>

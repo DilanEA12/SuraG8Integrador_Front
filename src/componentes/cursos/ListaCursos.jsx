@@ -30,9 +30,10 @@ function ListaCursos() {
     if (busqueda) {
       const q = busqueda.toLowerCase();
       lista = lista.filter(c =>
-        (c.titulo     || '').toLowerCase().includes(q) ||
-        (c.maestro    || '').toLowerCase().includes(q) ||
-        (c.descripcion || '').toLowerCase().includes(q)
+        (c.titulo      || '').toLowerCase().includes(q) ||
+        (c.maestro     || '').toLowerCase().includes(q) ||
+        (c.descripcion || '').toLowerCase().includes(q) ||
+        String(c.id    || '').includes(q)
       );
     }
 

@@ -89,3 +89,70 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* ── Buscador ─────────────────────────────────── */
+.usuarios-toolbar {
+  margin-bottom: 24px;
+}
+
+.usuarios-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 520px;
+}
+
+.usuarios-search {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid rgba(0,30,96,0.12);
+  border-radius: 25px;
+  font-size: 14px;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--sura-blanco);
+  color: var(--sura-azul-profundo);
+  transition: all 0.3s ease;
+}
+
+.usuarios-search:focus {
+  outline: none;
+  border-color: var(--sura-aqua);
+  box-shadow: 0 0 0 3px rgba(5,195,222,0.12);
+}
+
+.btn-limpiar-usuarios {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,30,96,0.1);
+  color: var(--sura-azul-profundo);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-limpiar-usuarios:hover {
+  background: var(--sura-azul-profundo);
+  color: white;
+}
+
+.usuarios-resultados-info {
+  font-size: 13px;
+  color: var(--sura-texto-secundario, #666);
+  margin: 8px 0 0 6px;
+}
+
+/* ── ID badge en carta ───────────────────────── */
+.usuario-carta-id {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sura-aqua);
+  background: rgba(5,195,222,0.1);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}

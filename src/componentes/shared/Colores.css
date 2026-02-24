@@ -1,67 +1,431 @@
 /* ====================================
    COLORES CORPORATIVOS SURA - UNIFICADO
    Variables globales para todo el proyecto
+   Dark Mode: añadir clase "dark" al <body>
    ==================================== */
 
-:root {
-  /* ===== PALETA PRINCIPAL SURA ===== */
-  --sura-azul-profundo: #001E60;
-  --sura-aqua: #05C3DE;
-  --sura-blanco: #FFFFFF;
-  --sura-gris-oscuro: #484949;
-  --sura-gris-claro: #DAE0E8;
-
-  /* ===== ALIASES PARA CONSISTENCIA ===== */
-  /* (usados en módulo de Notificaciones) */
-  --sura-azul-medio: #003DA5;       /* azul más claro para fondos/bordes */
-  --sura-azul-cielo: #00A3E0;       /* azul cielo para gradientes */
-  --sura-amarillo: #FDB913;         /* amarillo corporativo (tigre) */
-  --sura-amarillo-oscuro: #FFA000;  /* amarillo hover */
-
-  /* ===== TEXTOS ===== */
-  --sura-texto-principal: var(--sura-gris-oscuro);
-  --sura-texto-secundario: #666666;
-  --sura-texto-sobre-azul: var(--sura-blanco);
-
-  /* ===== ESTADOS / FEEDBACK ===== */
-  --sura-exito: #28a745;
-  --sura-exito-fondo: rgba(40, 167, 69, 0.15);
-  --sura-exito-texto: #155724;
-
-  --sura-error: #dc3545;
-  --sura-error-fondo: rgba(220, 53, 69, 0.15);
-  --sura-error-texto: #721c24;
-
-  --sura-info: var(--sura-aqua);
-  --sura-info-fondo: rgba(0, 163, 224, 0.15);
-  --sura-info-texto: var(--sura-azul-medio);
-
-  --sura-advertencia: var(--sura-amarillo);
-  --sura-advertencia-fondo: rgba(253, 185, 19, 0.15);
-  --sura-advertencia-texto: #856404;
-
-  /* ===== GRADIENTES REUTILIZABLES ===== */
-  --sura-gradiente-principal: linear-gradient(135deg, var(--sura-azul-medio) 0%, var(--sura-azul-cielo) 100%);
-  --sura-gradiente-dorado: linear-gradient(135deg, var(--sura-amarillo) 0%, var(--sura-amarillo-oscuro) 100%);
-  --sura-gradiente-peligro: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-
-  /* ===== GLASSMORPHISM ===== */
-  --sura-glass-fondo: rgba(255, 255, 255, 0.85);
-  --sura-glass-borde: rgba(255, 255, 255, 0.3);
-  --sura-glass-sombra: 0 8px 32px 0 rgba(0, 61, 165, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
-  --sura-glass-blur: blur(20px) saturate(180%);
-
-  /* ===== BORDES Y RADIOS ===== */
-  --sura-radio-sm: 8px;
-  --sura-radio-md: 12px;
-  --sura-radio-lg: 16px;
-  --sura-radio-xl: 20px;
-
-  /* ===== SOMBRAS ===== */
-  --sura-sombra-sm: 0 2px 8px rgba(0, 61, 165, 0.08);
-  --sura-sombra-md: 0 4px 16px rgba(0, 61, 165, 0.12);
-  --sura-sombra-lg: 0 8px 32px rgba(0, 61, 165, 0.2);
-
-  /* ===== TRANSICIONES ===== */
-  --sura-transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+   :root {
+    /* ===== PALETA PRINCIPAL SURA ===== */
+    --sura-azul-profundo: #001E60;
+    --sura-aqua: #05C3DE;
+    --sura-blanco: #FFFFFF;
+    --sura-gris-oscuro: #484949;
+    --sura-gris-claro: #DAE0E8;
+  
+    /* ===== ALIASES PARA CONSISTENCIA ===== */
+    --sura-azul-medio: #003DA5;
+    --sura-azul-cielo: #00A3E0;
+    --sura-amarillo: #FDB913;
+    --sura-amarillo-oscuro: #FFA000;
+  
+    /* ===== TEXTOS ===== */
+    --sura-texto-principal: var(--sura-gris-oscuro);
+    --sura-texto-secundario: #666666;
+    --sura-texto-sobre-azul: var(--sura-blanco);
+  
+    /* ===== FONDO GENERAL DE LA APP ===== */
+    --sura-fondo-app: #f4f6fb;
+    --sura-fondo-card: rgba(255, 255, 255, 0.98);
+    --sura-fondo-card-hover: rgba(0, 30, 96, 0.03);
+    --sura-borde-card: rgba(0, 30, 96, 0.07);
+    --sura-borde-input: rgba(0, 30, 96, 0.12);
+  
+    /* ===== TABLA ===== */
+    --sura-tabla-th-bg: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-aqua));
+    --sura-tabla-th-color: #ffffff;
+    --sura-tabla-td-color: var(--sura-gris-oscuro);
+    --sura-tabla-borde: rgba(0, 30, 96, 0.06);
+    --sura-tabla-hover: rgba(0, 30, 96, 0.03);
+  
+    /* ===== NAVBAR ===== */
+    --sura-navbar-bg: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-azul-medio) 100%);
+    --sura-navbar-texto: #ffffff;
+    --sura-menu-bg: #ffffff;
+    --sura-menu-header-bg: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-azul-medio));
+    --sura-menu-item-hover: rgba(0, 30, 96, 0.06);
+    --sura-menu-item-color: var(--sura-azul-profundo);
+    --sura-menu-divisor: rgba(0, 30, 96, 0.08);
+    --sura-menu-subitem-color: #444;
+    --sura-menu-subitem-hover: rgba(0, 30, 96, 0.05);
+    --sura-menu-pie-bg: rgba(0, 30, 96, 0.04);
+  
+    /* ===== ESTADOS / FEEDBACK ===== */
+    --sura-exito: #28a745;
+    --sura-exito-fondo: rgba(40, 167, 69, 0.15);
+    --sura-exito-texto: #155724;
+  
+    --sura-error: #dc3545;
+    --sura-error-fondo: rgba(220, 53, 69, 0.15);
+    --sura-error-texto: #721c24;
+  
+    --sura-info: var(--sura-aqua);
+    --sura-info-fondo: rgba(0, 163, 224, 0.15);
+    --sura-info-texto: var(--sura-azul-medio);
+  
+    --sura-advertencia: var(--sura-amarillo);
+    --sura-advertencia-fondo: rgba(253, 185, 19, 0.15);
+    --sura-advertencia-texto: #856404;
+  
+    /* ===== GRADIENTES REUTILIZABLES ===== */
+    --sura-gradiente-principal: linear-gradient(135deg, var(--sura-azul-medio) 0%, var(--sura-azul-cielo) 100%);
+    --sura-gradiente-dorado: linear-gradient(135deg, var(--sura-amarillo) 0%, var(--sura-amarillo-oscuro) 100%);
+    --sura-gradiente-peligro: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  
+    /* ===== GLASSMORPHISM ===== */
+    --sura-glass-fondo: rgba(255, 255, 255, 0.85);
+    --sura-glass-borde: rgba(255, 255, 255, 0.3);
+    --sura-glass-sombra: 0 8px 32px 0 rgba(0, 61, 165, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+    --sura-glass-blur: blur(20px) saturate(180%);
+  
+    /* ===== BORDES Y RADIOS ===== */
+    --sura-radio-sm: 8px;
+    --sura-radio-md: 12px;
+    --sura-radio-lg: 16px;
+    --sura-radio-xl: 20px;
+  
+    /* ===== SOMBRAS ===== */
+    --sura-sombra-sm: 0 2px 8px rgba(0, 61, 165, 0.08);
+    --sura-sombra-md: 0 4px 16px rgba(0, 61, 165, 0.12);
+    --sura-sombra-lg: 0 8px 32px rgba(0, 61, 165, 0.2);
+  
+    /* ===== TRANSICIONES ===== */
+    --sura-transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+    /* ===== TOGGLE DARK MODE ===== */
+    --sura-toggle-bg: rgba(255,255,255,0.15);
+    --sura-toggle-icon: '🌙';
+  }
+  
+  /* ============================================================
+     DARK MODE — se activa añadiendo la clase "dark" al <body>
+     Todos los módulos heredan estas variables automáticamente
+     ============================================================ */
+  body.dark {
+    /* ===== PALETA ADAPTADA AL OSCURO ===== */
+    --sura-azul-profundo: #7EADFF;       /* texto azul → legible sobre fondo oscuro */
+    --sura-aqua: #05C3DE;
+    --sura-blanco: #1a1f2e;              /* superficies "blancas" → gris muy oscuro */
+    --sura-gris-oscuro: #e2e8f0;        /* texto principal → casi blanco */
+    --sura-gris-claro: #2d3748;         /* bordes suaves */
+  
+    /* ===== ALIASES ===== */
+    --sura-azul-medio: #4A90D9;
+    --sura-azul-cielo: #38bdf8;
+    --sura-amarillo: #FDB913;
+    --sura-amarillo-oscuro: #FFA000;
+  
+    /* ===== TEXTOS ===== */
+    --sura-texto-principal: #e2e8f0;
+    --sura-texto-secundario: #94a3b8;
+    --sura-texto-sobre-azul: #ffffff;
+  
+    /* ===== FONDO GENERAL DE LA APP ===== */
+    --sura-fondo-app: #0f1623;
+    --sura-fondo-card: rgba(26, 31, 46, 0.98);
+    --sura-fondo-card-hover: rgba(255, 255, 255, 0.04);
+    --sura-borde-card: rgba(255, 255, 255, 0.07);
+    --sura-borde-input: rgba(255, 255, 255, 0.12);
+  
+    /* ===== TABLA ===== */
+    --sura-tabla-th-bg: linear-gradient(135deg, #0f2050, #1a4080);
+    --sura-tabla-th-color: #e2e8f0;
+    --sura-tabla-td-color: #cbd5e1;
+    --sura-tabla-borde: rgba(255, 255, 255, 0.05);
+    --sura-tabla-hover: rgba(255, 255, 255, 0.04);
+  
+    /* ===== NAVBAR ===== */
+    --sura-navbar-bg: linear-gradient(135deg, #0a1128 0%, #0f1e4a 100%);
+    --sura-navbar-texto: #e2e8f0;
+    --sura-menu-bg: #161d30;
+    --sura-menu-header-bg: linear-gradient(135deg, #0a1128, #0f2050);
+    --sura-menu-item-hover: rgba(255, 255, 255, 0.06);
+    --sura-menu-item-color: #93c5fd;
+    --sura-menu-divisor: rgba(255, 255, 255, 0.07);
+    --sura-menu-subitem-color: #cbd5e1;
+    --sura-menu-subitem-hover: rgba(255, 255, 255, 0.05);
+    --sura-menu-pie-bg: rgba(0, 0, 0, 0.2);
+  
+    /* ===== ESTADOS / FEEDBACK ===== */
+    --sura-exito: #4ade80;
+    --sura-exito-fondo: rgba(74, 222, 128, 0.12);
+    --sura-exito-texto: #86efac;
+  
+    --sura-error: #f87171;
+    --sura-error-fondo: rgba(248, 113, 113, 0.12);
+    --sura-error-texto: #fca5a5;
+  
+    --sura-info: #38bdf8;
+    --sura-info-fondo: rgba(56, 189, 248, 0.12);
+    --sura-info-texto: #7dd3fc;
+  
+    --sura-advertencia: #fbbf24;
+    --sura-advertencia-fondo: rgba(251, 191, 36, 0.12);
+    --sura-advertencia-texto: #fde68a;
+  
+    /* ===== GRADIENTES ===== */
+    --sura-gradiente-principal: linear-gradient(135deg, #1e3a6e 0%, #1a4a7a 100%);
+    --sura-gradiente-dorado: linear-gradient(135deg, #FDB913 0%, #FFA000 100%);
+    --sura-gradiente-peligro: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+  
+    /* ===== GLASSMORPHISM ===== */
+    --sura-glass-fondo: rgba(15, 22, 35, 0.85);
+    --sura-glass-borde: rgba(255, 255, 255, 0.08);
+    --sura-glass-sombra: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255,255,255,0.05);
+  
+    /* ===== SOMBRAS ===== */
+    --sura-sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --sura-sombra-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --sura-sombra-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  
+    /* ===== TOGGLE ===== */
+    --sura-toggle-bg: rgba(0,0,0,0.25);
+  }
+  
+  /* ── Fondo base del body ── */
+  body {
+    background-color: var(--sura-fondo-app);
+    color: var(--sura-texto-principal);
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+  
+  /* ── Inputs y selects globales en dark mode ── */
+  body.dark input,
+  body.dark select,
+  body.dark textarea {
+    background-color: #1e2740 !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(255,255,255,0.12) !important;
+  }
+  
+  body.dark input::placeholder,
+  body.dark textarea::placeholder {
+    color: #64748b !important;
+  }
+  
+  body.dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+  
+  /* ============================================================
+     DARK MODE — OVERRIDES GLOBALES POR MÓDULO
+     Corrige texto ilegible hardcodeado en los CSS individuales.
+     No es necesario tocar ningún archivo de módulo.
+     ============================================================ */
+  
+  /* ── Contenedores / fondos de página ── */
+  body.dark .matricula-container,
+  body.dark .notas-container,
+  body.dark .cursos-container,
+  body.dark .asistencias-container,
+  body.dark .profesores-container,
+  body.dark .reportes-container,
+  body.dark .notificaciones-container,
+  body.dark .usuarios-container,
+  body.dark .home-container,
+  body.dark [class$="-container"] {
+    background: var(--sura-fondo-app) !important;
+    color: var(--sura-texto-principal) !important;
+  }
+  
+  /* ── Títulos de encabezado (h1 h2 h3) ── */
+  body.dark h1,
+  body.dark h2,
+  body.dark h3,
+  body.dark h4,
+  body.dark h5 {
+    color: var(--sura-azul-profundo) !important;
+  }
+  
+  /* ── Subtítulos y párrafos secundarios ── */
+  body.dark p,
+  body.dark [class*="-subtitulo"],
+  body.dark [class*="-descripcion"],
+  body.dark [class*="-label"],
+  body.dark [class*="-meta"] {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  /* ── Cards / tarjetas ── */
+  body.dark [class*="-card"],
+  body.dark [class*="kpi-"],
+  body.dark [class*="-panel"],
+  body.dark [class*="-box"],
+  body.dark [class*="-tabla-wrap"],
+  body.dark [class*="-resumen"] {
+    background: var(--sura-fondo-card) !important;
+    border-color: var(--sura-borde-card) !important;
+    box-shadow: var(--sura-sombra-md) !important;
+  }
+  
+  /* ── Texto dentro de KPIs y cards ── */
+  body.dark [class*="kpi-"] span,
+  body.dark [class*="kpi-"] p,
+  body.dark [class*="-num"],
+  body.dark [class*="-lbl"] {
+    color: var(--sura-azul-profundo) !important;
+  }
+  
+  /* ── Tablas: body de filas ── */
+  body.dark table td,
+  body.dark [class*="-tabla"] td {
+    background: var(--sura-fondo-card) !important;
+    color: var(--sura-tabla-td-color) !important;
+    border-color: var(--sura-tabla-borde) !important;
+  }
+  
+  body.dark table tbody tr:hover td,
+  body.dark [class*="-tabla"] tbody tr:hover td {
+    background: var(--sura-fondo-card-hover) !important;
+  }
+  
+  /* ── Texto especial en tablas ── */
+  body.dark .td-nombre,
+  body.dark [class*="td-nombre"] {
+    color: var(--sura-azul-profundo) !important;
+  }
+  
+  body.dark .td-correo,
+  body.dark .td-id,
+  body.dark [class*="td-correo"],
+  body.dark [class*="td-id"] {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  body.dark .td-valor,
+  body.dark [class*="td-valor"] {
+    color: #4ade80 !important;
+  }
+  
+  /* ── Buscador / inputs de búsqueda ── */
+  body.dark [class*="-search"],
+  body.dark [class*="buscar"],
+  body.dark [class*="search-input"] {
+    background: #1e2740 !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(255,255,255,0.15) !important;
+  }
+  
+  /* ── Mensajes de error ── */
+  body.dark [class*="-error"] {
+    background: var(--sura-error-fondo) !important;
+    color: var(--sura-error-texto) !important;
+    border-color: var(--sura-error) !important;
+  }
+  
+  /* ── Mensajes de éxito ── */
+  body.dark [class*="message-success"],
+  body.dark [class*="-exito"],
+  body.dark [class*="success"] {
+    background: var(--sura-exito-fondo) !important;
+    color: var(--sura-exito-texto) !important;
+  }
+  
+  /* ── Estado vacío ── */
+  body.dark [class*="-vacio"],
+  body.dark [class*="-empty"] {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  /* ── Badges de rol (SOLO PROFESORES, etc.) ── */
+  body.dark [class*="badge-prox"],
+  body.dark [class*="solo-prof"],
+  body.dark [class*="badge-rol"] {
+    background: rgba(5,195,222,0.15) !important;
+    color: var(--sura-aqua) !important;
+  }
+  
+  /* ── Texto de cargando ── */
+  body.dark [class*="cargando"] p,
+  body.dark [class*="loading"] p {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  /* ── Formularios: labels y texto de campos ── */
+  body.dark .form-group label,
+  body.dark [class*="form-"] label {
+    color: var(--sura-azul-profundo) !important;
+  }
+  
+  body.dark .error-field,
+  body.dark [class*="error-field"] {
+    color: var(--sura-error-texto) !important;
+  }
+  
+  /* ── Prefijo $ en valor matrícula ── */
+  body.dark .input-prefix {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  /* ── Resumen post-envío ── */
+  body.dark .resumen-label {
+    color: var(--sura-azul-profundo) !important;
+  }
+  body.dark .resumen-valor {
+    color: var(--sura-texto-principal) !important;
+  }
+  body.dark .resumen-redireccion {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  /* ── Home: cards de acceso rápido ── */
+  body.dark [class*="home-card"],
+  body.dark [class*="acceso-card"],
+  body.dark [class*="modulo-card"] {
+    background: var(--sura-fondo-card) !important;
+    border-color: var(--sura-borde-card) !important;
+  }
+  
+  body.dark [class*="home-card"] h3,
+  body.dark [class*="home-card"] p,
+  body.dark [class*="acceso-card"] h3,
+  body.dark [class*="acceso-card"] p,
+  body.dark [class*="modulo-card"] h3,
+  body.dark [class*="modulo-card"] p {
+    color: var(--sura-texto-principal) !important;
+  }
+  
+  /* ── Línea decorativa bajo títulos (::after) ── */
+  /* Los gradientes se conservan, no hace falta override */
+  
+  /* ── Reportes: tabs / pestañas ── */
+  body.dark [class*="-tab"],
+  body.dark [class*="tab-btn"],
+  body.dark [class*="tab-item"] {
+    color: var(--sura-texto-secundario) !important;
+    border-color: transparent !important;
+  }
+  
+  body.dark [class*="-tab"].active,
+  body.dark [class*="-tab"][class*="activo"],
+  body.dark [class*="tab-btn"].active {
+    color: var(--sura-aqua) !important;
+    border-color: var(--sura-aqua) !important;
+  }
+  
+  /* ── Reportes: métricas / números grandes ── */
+  body.dark [class*="reporte-num"],
+  body.dark [class*="metric-value"],
+  body.dark [class*="-valor-grande"] {
+    color: var(--sura-azul-profundo) !important;
+  }
+  
+  /* ── Detalle de reporte / fila de reporte ── */
+  body.dark [class*="reporte-fila"],
+  body.dark [class*="reporte-item"] {
+    background: var(--sura-fondo-card) !important;
+    color: var(--sura-texto-principal) !important;
+    border-color: var(--sura-borde-card) !important;
+  }
+  
+  body.dark [class*="reporte-fila"] span,
+  body.dark [class*="reporte-item"] span,
+  body.dark [class*="reporte-fila"] p,
+  body.dark [class*="reporte-item"] p {
+    color: var(--sura-texto-secundario) !important;
+  }
+  
+  /* ── Sección "Detalle de Reportes" título ── */
+  body.dark [class*="detalle-titulo"],
+  body.dark [class*="seccion-titulo"] {
+    color: var(--sura-azul-profundo) !important;
+  }

@@ -28,6 +28,7 @@ function ReportesEstadisticos() {
   const [error,      setError]      = useState('');
   const [seleccionado, setSeleccionado] = useState(null);
   const [modoForm,   setModoForm]   = useState(false);
+  const [busqueda,   setBusqueda]   = useState('');
 
   useEffect(() => { cargar(); }, []);
 
@@ -46,7 +47,22 @@ function ReportesEstadisticos() {
 
   const academicos      = reportes.filter(r => r.tipoReporte === 'ACADEMICO'      || !r.tipoReporte);
   const administrativos = reportes.filter(r => r.tipoReporte === 'ADMINISTRATIVO');
-  const listaMostrada   = pestana === 'academico' ? academicos : administrativos;
+  const sinFiltrar      = pestana === 'academico' ? academicos : administrativos;
+
+  const listaMostrada = busqueda.trim() === '' ? sinFiltrar : (() => {
+    const q = busqueda.toLowerCase();
+    return sinFiltrar.filter(r =>
+      String(r.id                    || '').includes(q)                      ||
+      (r.periodoReporte              || '').toLowerCase().includes(q)        ||
+      (r.desempeno                   || '').toLowerCase().includes(q)        ||
+      (r.cursoPopular                || '').toLowerCase().includes(q)        ||
+      (r.cursoMenosPopular           || '').toLowerCase().includes(q)        ||
+      (r.asistenciaTotal             || '').toLowerCase().includes(q)        ||
+      (r.calificacionDocente         || '').toLowerCase().includes(q)        ||
+      String(r.cantidadUsuarios      ?? '').includes(q)                      ||
+      String(r.notaFinal             ?? '').includes(q)
+    );
+  })();
 
   if (cargando) return (
     <div className="reportes-container">
@@ -76,18 +92,21 @@ function ReportesEstadisticos() {
         </button>
       </div>
 
+
+    
+    
       {/* PESTAÑAS */}
       <div className="reportes-tabs">
         <button
           className={`tab-btn ${pestana === 'academico' ? 'tab-activo' : ''}`}
-          onClick={() => setPestana('academico')}
+          onClick={() => { setPestana('academico'); setBusqueda(''); }}
         >
           🎓 Académicos
           <span className="tab-badge">{academicos.length}</span>
         </button>
         <button
           className={`tab-btn ${pestana === 'administrativo' ? 'tab-activo' : ''}`}
-          onClick={() => setPestana('administrativo')}
+          onClick={() => { setPestana('administrativo'); setBusqueda(''); }}
         >
           📄 Administrativos
           <span className="tab-badge">{administrativos.length}</span>
@@ -96,8 +115,36 @@ function ReportesEstadisticos() {
 
       {error && <div className="reportes-error">{error}</div>}
 
-      {/* RESUMEN ESTADÍSTICO (tarjetas KPI) */}
-      {listaMostrada.length > 0 && (
+      {/* BUSCADOR */}
+      <div className="reportes-toolbar">
+        <input
+          className="reportes-search"
+          placeholder="🔍 Buscar por ID, período, desempeño, curso, calificación..."
+          value={busqueda}
+          onChange={e => { setBusqueda(e.target.value); }}
+        />
+        {busqueda && (
+          <button
+            className="btn-limpiar-search"
+            onClick={() => setBusqueda('')}
+            title="Limpiar búsqueda"
+          >
+            ✕
+          </button>
+        )}
+      </div>
+
+      {/* Indicador de resultados cuando hay búsqueda activa */}
+      {busqueda && (
+        <p className="reportes-resultados-info">
+          {listaMostrada.length === 0
+            ? 'Sin resultados para esa búsqueda.'
+            : `${listaMostrada.length} resultado${listaMostrada.length !== 1 ? 's' : ''} encontrado${listaMostrada.length !== 1 ? 's' : ''}`}
+        </p>
+      )}
+
+      {/* RESUMEN ESTADÍSTICO (KPIs usan siempre el total de la pestaña, no el filtrado) */}
+      {sinFiltrar.length > 0 && !busqueda && (
         <div className="kpi-grid">
           {pestana === 'academico' ? (
             <KpisAcademicos reportes={academicos} />

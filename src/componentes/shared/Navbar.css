@@ -8,14 +8,25 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 32px;
-  background: var(--sura-azul-profundo);
-  color: var(--sura-blanco);
+
+  /* ✅ FIX DARK MODE: color fijo dedicado, NO usa --sura-azul-profundo
+     para que no se vea afectado cuando esa variable cambia en dark mode */
+  background: #001E60;
+  color: #ffffff;
+
   font-family: 'Segoe UI', sans-serif;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 200;
   height: 68px;
+  transition: background 0.35s ease;
+}
+
+/* Dark mode: navbar se oscurece elegantemente pero NUNCA se aclara */
+body.dark .navbar {
+  background: #040e2a !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-sura-izquierda {
@@ -24,10 +35,16 @@
   gap: 12px;
 }
 
+/* ✅ FIX: nombre siempre blanco dentro de la navbar */
 .navbar-sura-izquierda h3 {
   margin: 0;
   font-size: 1.3rem;
   font-weight: 500;
+  color: #ffffff !important;
+}
+
+body.dark .navbar-sura-izquierda h3 {
+  color: #ffffff !important;
 }
 
 .logo-sura-navbar {
@@ -40,10 +57,10 @@
 
 .logo-sura-navbar:hover { transform: scale(1.1); }
 
-/* Badge rol en la navbar */
+/* Badge rol en la navbar — siempre con su color aqua */
 .badge-rol {
-  background: linear-gradient(135deg, var(--sura-aqua) 0%, #05A3C0 100%);
-  color: var(--sura-azul-profundo);
+  background: linear-gradient(135deg, #05C3DE 0%, #05A3C0 100%);
+  color: #001E60;
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 12px;
@@ -52,8 +69,17 @@
   box-shadow: 0 2px 8px rgba(5, 195, 222, 0.35);
 }
 
+body.dark .badge-rol {
+  color: #001E60 !important; /* mantiene legibilidad sobre el aqua */
+}
+
 /* ===== BOTÓN HAMBURGUESA ===== */
-.acciones-derecha { position: relative; }
+.acciones-derecha {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
 .contenedor-menu {
   display: flex;
@@ -62,8 +88,8 @@
 
 .boton-menu {
   background: transparent;
-  border: 2px solid var(--sura-blanco);
-  color: var(--sura-blanco);
+  border: 2px solid #ffffff;
+  color: #ffffff;
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
@@ -77,9 +103,46 @@
 }
 
 .boton-menu:hover {
-  background: var(--sura-blanco);
-  color: var(--sura-azul-profundo);
+  background: #ffffff;
+  color: #001E60;
   transform: scale(1.05);
+}
+
+body.dark .boton-menu {
+  border-color: rgba(255,255,255,0.6) !important;
+  color: #ffffff !important;
+}
+
+body.dark .boton-menu:hover {
+  background: rgba(255,255,255,0.15) !important;
+  color: #ffffff !important;
+}
+
+/* ===== BOTÓN DARK MODE TOGGLE ===== */
+.btn-dark-toggle {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.btn-dark-toggle:hover {
+  background: rgba(255,255,255,0.28);
+  transform: rotate(20deg) scale(1.1);
+}
+
+body.dark .btn-dark-toggle {
+  background: rgba(255,255,255,0.1) !important;
+  border-color: rgba(255,255,255,0.2) !important;
 }
 
 /* ===== OVERLAY ===== */
@@ -104,19 +167,28 @@
   right: 0;
   width: 300px;
   max-width: 92vw;
-
-  /* Estructura en 3 capas: header | scroll | pie */
   display: flex;
   flex-direction: column;
-  max-height: 520px;          /* altura máxima del panel */
+  max-height: 520px;
 
-  background: var(--sura-azul-profundo);
+  /* Modo claro: fondo azul corporativo */
+  background: #001E60;
+  color: #ffffff;
+
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   z-index: 199;
   animation: panelSlide 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.35s ease;
+}
+
+/* Dark mode: menú con fondo oscuro profundo */
+body.dark .menu-lateral {
+  background: #0d1526 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6) !important;
 }
 
 @keyframes panelSlide {
@@ -132,20 +204,25 @@
   padding: 14px 18px;
   background: rgba(255, 255, 255, 0.07);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;             /* no se encoge */
+  flex-shrink: 0;
+}
+
+body.dark .menu-panel-header {
+  background: rgba(255,255,255,0.04) !important;
+  border-bottom-color: rgba(255,255,255,0.07) !important;
 }
 
 .menu-panel-titulo {
   font-size: 15px;
   font-weight: 700;
-  color: var(--sura-blanco);
+  color: #ffffff !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .badge-rol-panel {
-  background: linear-gradient(135deg, var(--sura-aqua) 0%, #05A3C0 100%);
-  color: var(--sura-azul-profundo);
+  background: linear-gradient(135deg, #05C3DE 0%, #05A3C0 100%);
+  color: #001E60;
   padding: 3px 10px;
   border-radius: 10px;
   font-size: 11px;
@@ -161,7 +238,6 @@
   padding: 8px 0;
 }
 
-/* Scrollbar personalizada */
 .menu-scroll-area::-webkit-scrollbar { width: 5px; }
 .menu-scroll-area::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
@@ -180,7 +256,7 @@
   align-items: center;
   gap: 10px;
   padding: 13px 18px;
-  color: var(--sura-blanco);
+  color: #ffffff !important;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -196,7 +272,7 @@
 .menu-item-arrow {
   margin-left: auto;
   font-size: 18px;
-  color: var(--sura-aqua);
+  color: #05C3DE;
   opacity: 0.7;
 }
 
@@ -218,7 +294,7 @@
   padding: 13px 18px;
   background: transparent;
   border: none;
-  color: var(--sura-aqua);
+  color: #05C3DE !important;
   cursor: pointer;
   font-size: 13px;
   font-weight: 700;
@@ -242,7 +318,7 @@
 /* Chevron giratorio */
 .menu-chevron {
   font-size: 22px;
-  color: var(--sura-aqua);
+  color: #05C3DE;
   opacity: 0.7;
   transition: transform 0.25s ease;
   line-height: 1;
@@ -267,7 +343,7 @@
   align-items: center;
   gap: 10px;
   padding: 11px 18px 11px 38px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.85) !important;
   cursor: pointer;
   font-size: 13px;
   font-weight: 400;
@@ -277,18 +353,18 @@
 
 .menu-subitem:hover {
   background: rgba(5, 195, 222, 0.12);
-  color: var(--sura-blanco);
+  color: #ffffff !important;
   padding-left: 44px;
 }
 
 .menu-subitem-bullet {
   font-size: 12px;
-  color: var(--sura-aqua);
+  color: #05C3DE;
   opacity: 0.7;
   flex-shrink: 0;
 }
 
-/* Sub-ítem deshabilitado (próximamente) */
+/* Sub-ítem deshabilitado */
 .menu-subitem-deshabilitado {
   opacity: 0.45;
   cursor: default;
@@ -296,7 +372,7 @@
 
 .menu-subitem-deshabilitado:hover {
   background: transparent;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.85) !important;
   padding-left: 38px;
 }
 
@@ -326,6 +402,11 @@
   background: rgba(0, 0, 0, 0.15);
 }
 
+body.dark .menu-pie {
+  background: rgba(0,0,0,0.3) !important;
+  border-top-color: rgba(255,255,255,0.06) !important;
+}
+
 .btn-cerrar-sesion {
   width: 100%;
   display: flex;
@@ -353,15 +434,12 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .navbar { padding: 12px 16px; }
-
   .navbar-sura-izquierda h3 { font-size: 1rem; }
-
   .badge-rol { font-size: 10px; padding: 3px 8px; }
-
   .menu-lateral {
     width: 100vw;
     max-width: 100vw;
-    right: -16px;       /* compensa el padding del navbar */
+    right: -16px;
     border-radius: 0 0 16px 16px;
     max-height: 80vh;
   }
@@ -369,6 +447,5 @@
 
 @media (max-width: 480px) {
   .navbar { height: auto; flex-direction: column; gap: 10px; padding: 12px; }
-
   .menu-lateral { right: 0; border-radius: 0 0 12px 12px; }
 }

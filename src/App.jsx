@@ -29,6 +29,9 @@ import FormularioCurso from './componentes/cursos/FormularioCurso';
 // ── Reportes ✅ ──
 import ReportesEstadisticos from './componentes/reportes/ReportesEstadisticos';
 
+// ── Asistencias ✅ ──
+import ListaAsistencias from './componentes/asistencias/ListaAsistencias';
+
 // ── Shared ──
 import Navbar from './componentes/shared/Navbar';
 import Inicio from './componentes/pages/Inicio';
@@ -39,15 +42,21 @@ import ListaNotas from './componentes/notas/ListaNotas';
 import CrearNota  from './componentes/notas/CrearNota';
 import EditarNota from './componentes/notas/EditarNota';
 
-/*
-  PRÓXIMOS MÓDULOS — descomenta al implementarlos:
 
+//── Matrícula ──
   import ListaMatricula      from './componentes/matricula/ListaMatricula';
   import FormularioMatricula from './componentes/matricula/FormularioMatricula';
-*/
 
+// ── Estilos ──
 import './App.css';
 import './componentes/shared/Colores.css';
+// ── Inicializar Dark Mode ANTES del primer render ──────────────
+// Evita el "flash" de tema claro al recargar en modo oscuro
+(function initDarkMode() {
+  if (localStorage.getItem('sura-dark') === 'true') {
+    document.body.classList.add('dark');
+  }
+})();
 
 // ── Guards ──────────────────────────────────
 function RutaProtegida({ children }) {
@@ -96,9 +105,9 @@ function App() {
         <Route path="/home"
           element={<RutaProtegida><Home /></RutaProtegida>} />
 
-        {/* Usuarios */}
+        {/* Usuarios — solo Profesor */}
         <Route path="/usuarios"
-          element={<RutaProtegida><ListaUsuarios /></RutaProtegida>} />
+          element={<RutaSoloProfesor><ListaUsuarios /></RutaSoloProfesor>} />
 
         {/* Notificaciones */}
         <Route path="/notificaciones"
@@ -133,7 +142,16 @@ function App() {
         {/* Reportes — solo Profesor */}
         <Route path="/reportes"
           element={<RutaSoloProfesor><ReportesEstadisticos /></RutaSoloProfesor>} />
-      
+
+        {/* Asistencias */}
+        {/* Ver lista: ambos roles (estudiante ve solo sus propios registros) */}
+        <Route path="/asistencias"
+          element={<RutaProtegida><ListaAsistencias /></RutaProtegida>} />
+        {/* Registrar: solo profesor (el formulario está integrado en ListaAsistencias) */}
+        <Route path="/asistencias/crear"
+          element={<RutaSoloProfesor><ListaAsistencias /></RutaSoloProfesor>} />
+
+
         {/* Notas */}
         <Route path="/notas"
           element={<RutaProtegida><ListaNotas /></RutaProtegida>} />
@@ -144,15 +162,17 @@ function App() {
         <Route path="/notas/editar/:id"
           element={<RutaSoloProfesor><EditarNota /></RutaSoloProfesor>} />
 
-        {/* Matrícula (próximo) */}
-        {/*
+        {/* Matrícula */}
+        {
+          <>
         <Route path="/matricula"
           element={<RutaProtegida><ListaMatricula /></RutaProtegida>} />
         <Route path="/matricula/crear"
           element={<RutaSoloProfesor><FormularioMatricula /></RutaSoloProfesor>} />
         <Route path="/matricula/editar/:id"
           element={<RutaSoloProfesor><FormularioMatricula /></RutaSoloProfesor>} />
-        */}
+          </>
+        }
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
