@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { mostrarAlerta } from "../../utils/swalConfig";
 import { notaService } from "../../services/notaService";
 import { exportarNotasCSV, exportarNotasPDF } from "../../utils/exportNotas";
 import "./Notas.css";
@@ -43,11 +43,11 @@ function ListaNotas() {
     cargarNotas();
   }, [cargarNotas]);
 
-  /* ===============================
-     ELIMINAR
+ /* ===============================
+   ELIMINAR
   ================================ */
   const eliminarNota = async (id) => {
-    const confirmar = await Swal.fire({
+    const confirmar = await mostrarAlerta({
       title: "¿Eliminar nota?",
       text: "Esta acción no se puede deshacer",
       icon: "warning",
@@ -61,10 +61,18 @@ function ListaNotas() {
     try {
       await notaService.eliminar(id);
       await cargarNotas();
-      Swal.fire("Eliminada", "Nota eliminada correctamente", "success");
+      mostrarAlerta({
+        icon: "success",
+        title: "Eliminada",
+        text: "Nota eliminada correctamente"
+      });
     } catch (error) {
       console.error(error);
-      Swal.fire("Error", "No se pudo eliminar la nota", "error");
+      mostrarAlerta({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo eliminar la nota"
+      });
     }
   };
 

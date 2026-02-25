@@ -1,19 +1,20 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { mostrarAlerta } from './swalConfig';
 import Swal from 'sweetalert2';
 
 /* ===============================
    EXPORTAR CSV
-================================ */
-export function exportarNotasCSV(notas) {
-  if (!notas || notas.length === 0) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Sin datos',
-      text: 'No hay notas para exportar'
-    });
-    return;
-  }
+  ================================ */
+  export function exportarNotasCSV(notas) {
+    if (!notas || notas.length === 0) {
+      mostrarAlerta({
+        icon: 'info',
+        title: 'Sin datos',
+        text: 'No hay notas para exportar'
+      });
+      return;
+    }
 
   const encabezados = [
     'Estudiante',
@@ -58,16 +59,16 @@ export function exportarNotasCSV(notas) {
 
 /* ===============================
    EXPORTAR PDF
-================================ */
-export function exportarNotasPDF(notas) {
-  if (!notas || notas.length === 0) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Sin datos',
-      text: 'No hay notas para exportar'
-    });
-    return;
-  }
+  ================================ */
+  export function exportarNotasPDF(notas) {
+    if (!notas || notas.length === 0) {
+      mostrarAlerta({
+        icon: 'info',
+        title: 'Sin datos',
+        text: 'No hay notas para exportar'
+      });
+      return;
+    }
 
   const doc = new jsPDF();
 

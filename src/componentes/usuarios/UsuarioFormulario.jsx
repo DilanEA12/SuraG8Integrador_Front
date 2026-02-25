@@ -5,6 +5,7 @@
 // ====================================
 
 import { useState } from 'react';
+import { mostrarAlerta } from '../../utils/swalConfig';
 import Swal from 'sweetalert2';
 import { usuarioService } from '../../services/usuarioService';
 import './UsuarioFormulario.css'; // ✅ Ruta corregida (era '../usuarios/UsuarioFormulario.css')
@@ -57,7 +58,7 @@ function UsuarioFormulario() {
       // Usamos el servicio en vez de fetch directo
       await usuarioService.crear(usuario);
 
-      Swal.fire({
+      mostrarAlerta({
         icon: 'success',
         title: '¡Éxito!',
         text: 'Usuario creado correctamente',
@@ -66,12 +67,14 @@ function UsuarioFormulario() {
       });
 
       setUsuario({ nombre: '', correo: '', contraseña: '', rol: '', telefono: '' });
-    } catch (err) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: err.message || 'No se pudo crear el usuario',
-      });
+
+      } catch (err) {
+
+        mostrarAlerta({
+          icon: 'error',
+          title: 'Error',
+          text: err.message || 'No se pudo crear el usuario',
+        });
     } finally {
       setCargando(false);
     }

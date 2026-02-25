@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { mostrarAlerta } from '../../utils/swalConfig';
 import { usuarioService } from '../../services/usuarioService';
 import './LoginUsuarios.css';
 import logoSura from '../../imagenes/logoSura.png';
@@ -23,7 +23,11 @@ function LoginUsuarios() {
     e.preventDefault();
 
     if (!login.correo || !login.contraseña) {
-      Swal.fire({ icon: 'error', title: 'Error', text: 'Correo y contraseña obligatorios' });
+      mostrarAlerta({
+        icon: 'error',
+        title: 'Error',
+        text: 'Correo y contraseña obligatorios'
+      });
       return;
     }
 
@@ -35,7 +39,7 @@ function LoginUsuarios() {
 
       localStorage.setItem('usuario', JSON.stringify(usuarioEncontrado));
 
-      Swal.fire({
+      mostrarAlerta({
         icon: 'success',
         title: 'Bienvenido',
         text: `Hola ${usuarioEncontrado.nombre}`,
@@ -46,14 +50,20 @@ function LoginUsuarios() {
       });
 
       navegacion('/home');
+
     } catch (err) {
       const esCrendenciales = err.message === 'Correo o contraseña incorrectos';
-      Swal.fire({
+
+      mostrarAlerta({
         icon: 'error',
         title: 'Error',
-        text: esCrendenciales ? err.message : 'No se pudo conectar con el servidor',
+        text: esCrendenciales
+          ? err.message
+          : 'No se pudo conectar con el servidor',
       });
+
       console.error(err);
+
     } finally {
       setCargando(false);
     }

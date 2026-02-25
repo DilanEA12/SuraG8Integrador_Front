@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { mostrarAlerta } from '../../utils/swalConfig';
 import { notaService } from '../../services/notaService';
 import { usuarioService } from '../../services/usuarioService';
 import { cursoService } from '../../services/cursoService';
@@ -24,7 +24,7 @@ function CrearNota() {
   });
 
   /* ===============================
-     CARGAR ESTUDIANTES
+   CARGAR ESTUDIANTES
   ================================ */
   useEffect(() => {
 
@@ -39,7 +39,11 @@ function CrearNota() {
 
       } catch (error) {
         console.error("Error cargando estudiantes:", error);
-        Swal.fire("Error", "No se pudieron cargar los estudiantes", "error");
+        mostrarAlerta({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar los estudiantes'
+        });
       }
     };
 
@@ -51,11 +55,15 @@ function CrearNota() {
         setCursos(listaCursos);
       } catch (error) {
         console.error("Error cargando cursos:", error);
-        Swal.fire("Error", "No se pudieron cargar los cursos", "error");
+        mostrarAlerta({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar los cursos'
+        });
       }
     };
 
-  cargarCursos();
+    cargarCursos();
 
   }, []);
 
@@ -67,7 +75,7 @@ function CrearNota() {
   };
 
   /* ===============================
-     GUARDAR NOTA
+   GUARDAR NOTA
   ================================ */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,12 +88,20 @@ function CrearNota() {
       !form.tipoExamen ||
       form.nota === ''
     ) {
-      Swal.fire('Error', 'Completa todos los campos', 'error');
+      mostrarAlerta({
+        icon: 'error',
+        title: 'Error',
+        text: 'Completa todos los campos'
+      });
       return;
     }
 
     if (Number(form.nota) > 5 || Number(form.nota) < 0) {
-      Swal.fire('Error', 'La nota debe estar entre 0 y 5', 'error');
+      mostrarAlerta({
+        icon: 'error',
+        title: 'Error',
+        text: 'La nota debe estar entre 0 y 5'
+      });
       return;
     }
 
@@ -93,13 +109,13 @@ function CrearNota() {
 
       const nuevaNota = {
         ...form,
-          nota: Number(form.nota),
-          profesorCorreo: usuario?.correo
+        nota: Number(form.nota),
+        profesorCorreo: usuario?.correo
       };
 
       await notaService.crear(nuevaNota);
 
-      Swal.fire({
+      mostrarAlerta({
         icon: 'success',
         title: 'Éxito',
         text: 'Nota creada correctamente',
@@ -111,7 +127,11 @@ function CrearNota() {
 
     } catch (error) {
       console.error(error);
-      Swal.fire('Error', 'No se pudo guardar la nota', 'error');
+      mostrarAlerta({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo guardar la nota'
+      });
     }
   };
 

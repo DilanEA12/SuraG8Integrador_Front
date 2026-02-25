@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { mostrarAlerta } from '../../utils/swalConfig';
 import { notaService } from '../../services/notaService';
+import { cursoService} from '../../services/cursoService';
 import './Notas.css';
 
 function EditarNota() {
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [cursos, setCursos] = useState([]);
 
   const [form, setForm] = useState({
     nombreEstudiante: '',
@@ -19,7 +22,7 @@ function EditarNota() {
   });
 
   /* ===============================
-     CARGAR NOTA
+   CARGAR NOTA
   ================================ */
   useEffect(() => {
     const cargarNota = async () => {
@@ -28,7 +31,11 @@ function EditarNota() {
         const notaEncontrada = data.find(n => n.id === Number(id));
 
         if (!notaEncontrada) {
-          Swal.fire('Error', 'Nota no encontrada', 'error');
+          mostrarAlerta({
+            icon: 'error',
+            title: 'Error',
+            text: 'Nota no encontrada'
+          });
           navigate('/notas');
           return;
         }
@@ -44,12 +51,37 @@ function EditarNota() {
 
       } catch (error) {
         console.error(error);
-        Swal.fire('Error', 'No se pudo cargar la nota', 'error');
+        mostrarAlerta({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo cargar la nota'
+        });
       }
     };
 
     cargarNota();
   }, [id, navigate]);
+
+  /* ===============================
+    CARGAR CURSOS
+  ================================ */
+  useEffect(() => {
+    const cargarCursos = async () => {
+      try {
+        const listaCursos = await cursoService.listarTodos();
+        setCursos(listaCursos);
+      } catch (error) {
+        console.error("Error cargando cursos:", error);
+        mostrarAlerta({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar los cursos'
+        });
+      }
+    };
+
+    cargarCursos();
+  }, []);
 
   /* ===============================
      HANDLE CHANGE
@@ -59,13 +91,17 @@ function EditarNota() {
   };
 
   /* ===============================
-     ACTUALIZAR
+   ACTUALIZAR
   ================================ */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (Number(form.nota) > 5 || Number(form.nota) < 0) {
-      Swal.fire('Error', 'La nota debe estar entre 0 y 5', 'error');
+      mostrarAlerta({
+        icon: 'error',
+        title: 'Error',
+        text: 'La nota debe estar entre 0 y 5'
+      });
       return;
     }
 
@@ -75,7 +111,7 @@ function EditarNota() {
         nota: Number(form.nota)
       });
 
-      Swal.fire({
+      mostrarAlerta({
         icon: 'success',
         title: 'Actualizada',
         text: 'Nota actualizada correctamente',
@@ -87,7 +123,11 @@ function EditarNota() {
 
     } catch (error) {
       console.error(error);
-      Swal.fire('Error', 'No se pudo actualizar', 'error');
+      mostrarAlerta({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo actualizar'
+      });
     }
   };
 
@@ -127,12 +167,18 @@ function EditarNota() {
             onChange={handleChange}
           />
 
-          <input
-            type="text"
+          <select
             name="nombreMateria"
             value={form.nombreMateria}
             onChange={handleChange}
-          />
+           >
+            <option value="">Seleccionar curso</option>
+            {cursos.map((curso) => (
+              <option key={curso.id} value={curso.titulo}>
+                {curso.titulo}
+              </option>
+            ))}
+          </select>
 
           <select
             name="tipoExamen"

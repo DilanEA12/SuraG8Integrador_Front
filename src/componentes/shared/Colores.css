@@ -429,3 +429,72 @@
   body.dark [class*="seccion-titulo"] {
     color: var(--sura-azul-profundo) !important;
   }
+
+  /* ===============================
+   SWEETALERT DARK MODE
+================================ */
+
+body.dark .swal-dark {
+  background-color: #1e293b !important;
+  color: #e5e7eb !important;
+}
+
+body.dark .swal-dark .swal2-title {
+  color: #e5e7eb !important;
+}
+
+body.dark .swal-dark .swal2-html-container {
+  color: #cbd5e1 !important;
+}
+
+/* ===============================
+   SWEETALERT DARK MODE FIX PRO
+================================ */
+
+/* Fondo del popup */
+body.dark .swal-dark {
+  background-color: #1e293b !important;
+  color: #e5e7eb !important;
+  border-radius: 12px !important;
+}
+
+/* Texto */
+body.dark .swal-dark .swal2-title {
+  color: #e5e7eb !important;
+}
+
+body.dark .swal-dark .swal2-html-container {
+  color: #cbd5e1 !important;
+}
+
+/* Quitar fondo verde translúcido del icono */
+body.dark .swal-dark .swal2-icon.swal2-success {
+  border-color: #22c55e !important;
+}
+
+body.dark .swal-dark .swal2-success-circular-line-left,
+body.dark .swal-dark .swal2-success-circular-line-right,
+body.dark .swal-dark .swal2-success-fix {
+  background: transparent !important;
+}
+
+/* Overlay más elegante en dark */
+body.dark .swal2-container {
+  background: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* ===============================
+   UNIFICAR FONDO SWEETALERT DARK
+================================ */
+
+body.dark .swal-dark .swal2-html-container {
+  background: transparent !important;
+}
+
+body.dark .swal-dark .swal2-title {
+  background: transparent !important;
+}
+
+body.dark .swal-dark {
+  background: #1e293b !important;
+}
