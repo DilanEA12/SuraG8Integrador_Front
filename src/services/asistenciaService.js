@@ -56,6 +56,25 @@ export const asistenciaService = {
     }
   },
 
+  // ========== ACTUALIZAR (POST con id - JPA save()) ==========
+  actualizar: async (asistencia) => {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(asistencia),
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Error al actualizar la asistencia');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error en actualizar():', error);
+      throw error;
+    }
+  },
+
   // ========== FILTRAR POR NOMBRE (cliente) ==========
   // El backend no tiene endpoint de búsqueda por nombre,
   // así que filtramos en el frontend después de traer todo

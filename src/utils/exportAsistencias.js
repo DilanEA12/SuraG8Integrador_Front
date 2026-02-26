@@ -12,16 +12,22 @@ const escapeCsv = (value) => {
 // ── Exportar a CSV ────────────────────────────
 export const exportarAsistenciasCSV = (asistencias) => {
   // Soporta tanto el formato real del backend como el formato adaptado del componente
-  const headers = ['ID', 'Nombre', 'Fecha', 'Hora Entrada', 'Estado'];
+  const headers = ['ID', 'Nombre', 'Correo', 'Curso', 'Profesor', 'Fecha', 'Hora Entrada', 'Estado', 'Excusa'];
 
   const rows = asistencias.map((a) => [
     a.id              ?? '',
     // Soporta nombrePersona (backend real) y estudianteNombre (formato adaptado)
     a.nombrePersona   ?? a.estudianteNombre ?? '',
+    a.correoPersona   ?? '',
+    a.tituloCurso     ?? a.materiaNombre ?? '',
+    a.profesorNombre  ?? a.profesorCorreo ?? a.creadoPor ?? a.usuarioRegistro ?? '',
     a.fecha           ?? '',
     a.horaEntrada     ?? '',
     // Soporta asistio (Boolean del backend) y estado (String adaptado)
     a.estado          ?? (a.asistio ? 'Presente' : 'Ausente'),
+    (a.asistio === true)
+      ? '—'
+      : (a.tieneExcusa ? (a.excusa ?? 'Con excusa') : 'Sin excusa'),
   ]);
 
   const csv = [headers, ...rows]
@@ -60,9 +66,13 @@ export const exportarAsistenciasPDF = (asistencias) => {
         <tr style="background:${color}">
           <td>${a.id ?? '—'}</td>
           <td><strong>${nombre}</strong></td>
+          <td>${a.correoPersona ?? '—'}</td>
+          <td>${a.tituloCurso ?? a.materiaNombre ?? '—'}</td>
+          <td>${a.profesorNombre ?? a.profesorCorreo ?? a.creadoPor ?? a.usuarioRegistro ?? '—'}</td>
           <td>${a.fecha ?? '—'}</td>
           <td>${a.horaEntrada ?? '—'}</td>
           <td>${estado}</td>
+          <td>${a.asistio ? '—' : (a.tieneExcusa ? (a.excusa ?? 'Con excusa') : 'Sin excusa')}</td>
         </tr>`;
     })
     .join('');
@@ -110,7 +120,7 @@ export const exportarAsistenciasPDF = (asistencias) => {
         <table>
           <thead>
             <tr>
-              <th>ID</th><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Estado</th>
+              <th>ID</th><th>Nombre</th><th>Correo</th><th>Curso</th><th>Profesor</th><th>Fecha</th><th>Hora</th><th>Estado</th><th>Excusa</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
